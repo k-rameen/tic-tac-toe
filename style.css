@@ -1,0 +1,38 @@
+body {
+  background-color: rgb(245, 247, 255)
+}
+
+.container {
+  background-color: rgb(227, 231, 255);
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 5px;
+  width: 400px;
+  height: 400px;
+
+  border: 2px solid rgb(104, 105, 177);
+  padding: 4px;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grid {
+  width: auto;
+  height: auto;
+  border: 2px solid rgb(140, 143, 207);
+  background-color: rgb(214, 219, 255);
+
+  display: flex;
+}
+
+.grid:hover {
+  background-color: rgb(191, 197, 255);
+  cursor: pointer;
+}
+
+
+#title {
+  text-align: center;
+  color: rgb(104, 105, 177)
+}
