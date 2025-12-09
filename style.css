@@ -34,7 +34,7 @@ body {
 }
 
 :root {
-  --hover-symbol: "X";
+  --hover-symbol: X;
 }
 
 .grid:hover {
@@ -57,7 +57,7 @@ body {
 }
 
 .grid:not(.occupied):hover::after {
-  content: var(--hover-symbol);
+  content: var(--hover-symbol, "X");
   opacity: 0.3;
 }
 
