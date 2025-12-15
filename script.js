@@ -1,14 +1,46 @@
+let board = ["", "", "", "", "", "", "", "", ""];
 let tile = document.querySelectorAll(".grid");
 let currentPlayer = "X";
+let gameActive = true;
 setHoverSymbol();
 
 function tileClicked(e) {
+  if (!gameActive) return;
   let clickedTile = e.target;
-  console.log(clickedTile);
+
+  let index = Array.from(tile).indexOf(clickedTile);
   
   if (clickedTile.innerText === "") {
     clickedTile.innerText = currentPlayer;
     clickedTile.classList.add("occupied");
+    board[index] = currentPlayer;
+
+    clickedTile.style.color = currentPlayer === "X"
+    ? "rgb(255, 212, 252)"
+    : "rgb(210, 241, 255)";
+
+    let result = checkWinner();
+    
+    if (result) {
+      result.combo.forEach(i => tile[i].classList.add('winner'));
+      gameActive = false;
+      console.log(result.winner + " wins!");
+      return;
+    }  
+    let isDraw = true;
+    for (let i = 0 ; i < board.length; i++) {
+      if (board[i] === "") {
+        isDraw = false;
+        break;
+      }
+    }
+
+    if (isDraw) {
+      gameActive = false;
+      console.log("It's a tie!");
+      return;
+    }
+    
 
     if (currentPlayer === "X") {
       clickedTile.style.color = "rgb(255, 212, 252)";
@@ -35,23 +67,62 @@ for (let i = 0; i < tile.length; i++) {
 }
 
 function setHoverSymbol() {
-  document.documentElement.style.setProperty('--hover-symbol', '"' + currentPlayer + '""');
+  document.documentElement.style.setProperty('--hover-symbol', '"' + currentPlayer + '"');
 }
 
 let clearButton = document.querySelector(".restart");
 let startingPlayer = "X";
 
 function clearBoard() {
+
+  board = Array(9).fill("");
+  
   for (let i = 0; i < tile.length; i++) {
     tile[i].innerText = "";
     tile[i].classList.remove("occupied");
+    tile[i].classList.remove("winner");
+    tile[i].style.color = "";
   }
+
+  gameActive = true;
+  
   currentPlayer = startingPlayer;
-  setHoverSymbol();
   startingPlayer = startingPlayer === "X" ? "O" : "X"; //alternate starting player
   setHoverSymbol();
+  
 }
 
 clearButton.addEventListener("click", clearBoard);
 
+// winning functionality
+const winningCombos = [
+  //rows
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+
+  //columns
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+
+  //diagonals
+  [0, 4, 8],
+  [2, 4, 6]
+];
+
+function checkWinner() {
+  for (let i = 0; i < winningCombos.length; i++) {
+    let combo = winningCombos[i]
+    let win1 = combo[0];
+    let win2 = combo[1];
+    let win3 = combo[2];
+
+    if (board[win1] !== "" && board[win1] === board[win2] &&  board[win1] === board[win3]) {
+      return { winner: board[win1], combo: combo };
+    }
+  }
+
+  return null;
+}
 
