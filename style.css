@@ -81,3 +81,9 @@ body {
   text-align: center;
   color: rgb(104, 105, 177)
 }
+
+.message {
+  background-color: rgb(255, 240, 255);
+  border: rgb(200, 170, 230);
+  color: rgb(120, 90, 160);
+}
