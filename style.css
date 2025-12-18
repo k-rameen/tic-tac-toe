@@ -56,6 +56,16 @@ body {
   transition: opacity 120ms ease;
 }
 
+.grid.winner-x {
+  background: linear-gradient(135deg, rgb(238, 226, 245), rgb(222, 198, 235), rgb(205, 175, 230));
+  transform: scale(1.03);
+}
+
+.grid.winner-o {
+  background: linear-gradient(135deg, rgb(230, 235, 255), rgb(210, 220, 255), rgb(195, 205, 245) );
+  transform: scale(1.03);
+}
+
 .grid:not(.occupied):hover::after {
   content: var(--hover-symbol, "X");
   opacity: 0.3;
@@ -86,4 +96,8 @@ body {
   background-color: rgb(255, 240, 255);
   border: rgb(200, 170, 230);
   color: rgb(120, 90, 160);
+  width: 100px;
+  height: 60px;
+  text-align: center;
+  padding: 0 30px 30px;
 }
