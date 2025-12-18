@@ -16,17 +16,27 @@ function tileClicked(e) {
     board[index] = currentPlayer;
 
     clickedTile.style.color = currentPlayer === "X"
-    ? "rgb(255, 212, 252)"
-    : "rgb(210, 241, 255)";
+    ? "rgb(170, 120, 200)"
+    : "rgb(125, 145, 220)";
 
     let result = checkWinner();
-    
+   
     if (result) {
-      result.combo.forEach(i => tile[i].classList.add('winner'));
-      gameActive = false;
-      console.log(result.winner + " wins!");
-      return;
-    }  
+
+      if (result.winner === "X") {
+        result.combo.forEach(i => tile[i].classList.add('winner-x'));
+        gameActive = false;
+        console.log(result.winner + " wins!");
+        return;
+      } 
+      else if (result.winner === "O") {
+        result.combo.forEach(i => tile[i].classList.add('winner-o'));
+        gameActive = false;
+        console.log(result.winner + " wins!");
+        return;
+      }
+    }    
+  
     let isDraw = true;
     for (let i = 0 ; i < board.length; i++) {
       if (board[i] === "") {
@@ -42,13 +52,13 @@ function tileClicked(e) {
     }
     
 
-    if (currentPlayer === "X") {
-      clickedTile.style.color = "rgb(255, 212, 252)";
-    }
+    // if (currentPlayer === "X") {
+    //   clickedTile.style.color = "rgb(255, 212, 252)";
+    // }
 
-    if (currentPlayer === "O") {
-      clickedTile.style.color = "rgb(210, 241, 255)";
-    }
+    // if (currentPlayer === "O") {
+    //   clickedTile.style.color = "rgb(210, 241, 255)";
+    // }
 
     if (currentPlayer === "X") {
       currentPlayer = "O";
@@ -79,8 +89,7 @@ function clearBoard() {
   
   for (let i = 0; i < tile.length; i++) {
     tile[i].innerText = "";
-    tile[i].classList.remove("occupied");
-    tile[i].classList.remove("winner");
+    tile[i].classList.remove("occupied", "winner-x", "winner-o");
     tile[i].style.color = "";
   }
 
@@ -124,5 +133,9 @@ function checkWinner() {
   }
 
   return null;
+}
+
+function popUp() {
+  
 }
 
