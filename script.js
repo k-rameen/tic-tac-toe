@@ -4,6 +4,26 @@ let currentPlayer = "X";
 let gameActive = true;
 setHoverSymbol();
 
+function showMessage(text) {
+  const msg = document.querySelector(".message");
+  const spanMsg = document.querySelector(".message-text");
+
+  spanMsg.innerText = text;
+  msg.style.display = "block";
+}
+
+function hideMessage() {
+  const msg = document.querySelector(".message");
+  msg.style.display = "none";
+
+  const text = document.querySelector(".message-text");
+  text.innerText = "";
+}
+
+const button = document.querySelector(".message-close");
+
+button.addEventListener("click", hideMessage);
+
 function tileClicked(e) {
   if (!gameActive) return;
   let clickedTile = e.target;
@@ -26,13 +46,13 @@ function tileClicked(e) {
       if (result.winner === "X") {
         result.combo.forEach(i => tile[i].classList.add('winner-x'));
         gameActive = false;
-        console.log(result.winner + " wins!");
+        showMessage("X wins!");
         return;
       } 
       else if (result.winner === "O") {
         result.combo.forEach(i => tile[i].classList.add('winner-o'));
         gameActive = false;
-        console.log(result.winner + " wins!");
+        showMessage("O wins!");
         return;
       }
     }    
@@ -47,7 +67,7 @@ function tileClicked(e) {
 
     if (isDraw) {
       gameActive = false;
-      console.log("It's a tie!");
+      showMessage("It's a draw!");
       return;
     }
     
@@ -98,7 +118,7 @@ function clearBoard() {
   currentPlayer = startingPlayer;
   startingPlayer = startingPlayer === "X" ? "O" : "X"; //alternate starting player
   setHoverSymbol();
-  
+  hideMessage();
 }
 
 clearButton.addEventListener("click", clearBoard);
@@ -135,7 +155,5 @@ function checkWinner() {
   return null;
 }
 
-function popUp() {
-  
-}
+
 
