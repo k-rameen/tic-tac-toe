@@ -93,22 +93,24 @@ function tileClicked(e) {
     //   clickedTile.style.color = "rgb(210, 241, 255)";
     // }
 
+    // swap current player
     if (currentPlayer === "X") {
       currentPlayer = "O";
     }
     else {
       currentPlayer = "X";
     }
-    setHoverSymbol();
+    setHoverSymbol(); // update hover symbol
   }
   
 }
 
-
+// add event to all tiles 
 for (let i = 0; i < tile.length; i++) {
   tile[i].addEventListener("click", tileClicked);
 }
 
+// update hover symbol
 function setHoverSymbol() {
   document.documentElement.style.setProperty('--hover-symbol', '"' + currentPlayer + '"');
 }
@@ -116,22 +118,24 @@ function setHoverSymbol() {
 let clearButton = document.querySelector(".restart");
 let startingPlayer = "X";
 
+// clear board to initial state
 function clearBoard() {
-
+  // clear the board array
   board = Array(9).fill("");
-  
+  // clear the text, classes and color from each tile
   for (let i = 0; i < tile.length; i++) {
     tile[i].innerText = "";
     tile[i].classList.remove("occupied", "winner-x", "winner-o");
     tile[i].style.color = "";
   }
 
-  gameActive = true;
-  
+  gameActive = true; // allow clicks again
+
+  // set who starts this round and alternate
   currentPlayer = startingPlayer;
-  startingPlayer = startingPlayer === "X" ? "O" : "X"; //alternate starting player
-  setHoverSymbol();
-  hideMessage();
+  startingPlayer = startingPlayer === "X" ? "O" : "X"; // alternate starting player
+  setHoverSymbol(); // call function to start hover symbols again
+  hideMessage(); // hide the pop up
 }
 
 clearButton.addEventListener("click", clearBoard);
@@ -152,7 +156,7 @@ const winningCombos = [
   [0, 4, 8],
   [2, 4, 6]
 ];
-
+// check board for a winning combo
 function checkWinner() {
   for (let i = 0; i < winningCombos.length; i++) {
     let combo = winningCombos[i]
