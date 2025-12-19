@@ -1,54 +1,66 @@
+// tile placements (node list)
 let board = ["", "", "", "", "", "", "", "", ""];
+// connects to the whole grid
 let tile = document.querySelectorAll(".grid");
 let currentPlayer = "X";
 let gameActive = true;
 setHoverSymbol();
 
+// have the pop up appear when game ends
 function showMessage(text) {
+  // find the classes 
   const msg = document.querySelector(".message");
   const spanMsg = document.querySelector(".message-text");
-
+  // make the pop up visible and put the winning text into the pop up
   spanMsg.innerText = text;
   msg.style.display = "block";
 }
 
+// closes pop up
 function hideMessage() {
+  //find the pop up and hide it
   const msg = document.querySelector(".message");
   msg.style.display = "none";
-
+  // find the text in the pop up and remove it so it refreshes
   const text = document.querySelector(".message-text");
   text.innerText = "";
 }
 
+// event for when player clicks the x button
 const button = document.querySelector(".message-close");
-
+// link the close button to the hide function
 button.addEventListener("click", hideMessage);
 
+// game functionality for when player's click a tile
 function tileClicked(e) {
+  // ignore clicks if game is over
   if (!gameActive) return;
   let clickedTile = e.target;
 
+  // find the index of the clicked tile inside the node list
   let index = Array.from(tile).indexOf(clickedTile);
-  
+  // only allow x/o to be placed on an empty tile
   if (clickedTile.innerText === "") {
+    // place the symbol of the current player, mark occupied and store in the board array
     clickedTile.innerText = currentPlayer;
     clickedTile.classList.add("occupied");
     board[index] = currentPlayer;
-
+    // color the symbol
     clickedTile.style.color = currentPlayer === "X"
     ? "rgb(170, 120, 200)"
     : "rgb(125, 145, 220)";
-
+    // check if there's a winner
     let result = checkWinner();
    
     if (result) {
-
+      // if x wins, add the winner class properties to highlight tiles 
       if (result.winner === "X") {
         result.combo.forEach(i => tile[i].classList.add('winner-x'));
-        gameActive = false;
-        showMessage("X wins!");
-        return;
+        gameActive = false;  // stop game
+        showMessage("X wins!");  // put message in pop up
+        return;  // stop game
       } 
+      // same as above but for O
       else if (result.winner === "O") {
         result.combo.forEach(i => tile[i].classList.add('winner-o'));
         gameActive = false;
@@ -56,15 +68,16 @@ function tileClicked(e) {
         return;
       }
     }    
-  
+    // in case of draw
     let isDraw = true;
     for (let i = 0 ; i < board.length; i++) {
+      // if any tile is empty, it is not a draw
       if (board[i] === "") {
         isDraw = false;
         break;
       }
     }
-
+    // if draw, stop game and populate pop up
     if (isDraw) {
       gameActive = false;
       showMessage("It's a draw!");
