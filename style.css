@@ -57,12 +57,12 @@ body {
 }
 
 .grid.winner-x {
-  background: linear-gradient(135deg, rgb(238, 226, 245), rgb(222, 198, 235), rgb(205, 175, 230));
+  background: linear-gradient(135deg, rgb(235, 229, 255), rgb(221, 209, 255), rgb(197, 194, 245));
   transform: scale(1.03);
 }
 
 .grid.winner-o {
-  background: linear-gradient(135deg, rgb(230, 235, 255), rgb(210, 220, 255), rgb(195, 205, 245) );
+  background: linear-gradient(135deg, rgb(230, 235, 255), rgb(210, 220, 255), rgb(195, 205, 245));
   transform: scale(1.03);
 }
 
@@ -93,11 +93,34 @@ body {
 }
 
 .message {
-  background-color: rgb(255, 240, 255);
-  border: rgb(200, 170, 230);
-  color: rgb(120, 90, 160);
-  width: 100px;
-  height: 60px;
+  display: none;
+  position: fixed;
+
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: min(180px, 90vw);
+  padding: 18px 20px 18px;
+
+  background-color: rgb(135, 159, 232);
+  border: 6px solid rgb(53, 84, 177);
+  border-radius: 12px;
+  
   text-align: center;
-  padding: 0 30px 30px;
+  color: rgb(0, 87, 209);
+  
+  z-index: 1001;
+}
+
+.message .message-close {
+  background-color: rgb(173, 194, 255);
+  border: 2px solid rgb(88, 113, 187);
+  color: rgb(0, 20, 168);
+  border-radius: 4px;
+  position: absolute;
+  cursor: pointer;
+  top: 12px;
+  right: 12px;
+  
 }
